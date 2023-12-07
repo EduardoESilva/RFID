@@ -14,14 +14,14 @@ namespace RFID
         //         iBaudRate: Baudrate from 4800bps to 115200bps  device default BaudRate is 115200bps
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_OpenDevice(string pcCom, int iBaudRate);
 
         /******** Func: Close Device *******************************/
         //  Param: None
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_CloseDevice();
 
         /******** Func: GetDeviceInfo. 9Bytes**********/
@@ -29,7 +29,7 @@ namespace RFID
         //          pucSystemInfo: SysInfo  9Bytes 1:SoftVer 2:HardVer 3 - 9:DeviceSN
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_GetDeviceSystemInfo(byte bDevAdr, byte[] pucSystemInfo);
 
         /******** Func: Get Device One Param**********/
@@ -38,7 +38,7 @@ namespace RFID
         //         pValue: Return Param Value 
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_ReadDeviceOneParam(byte bDevAdr, byte pucDevParamAddr, byte[] pValue);
 
         /******** Func: Set Device One Param**********/
@@ -47,21 +47,21 @@ namespace RFID
         //         bValue: Param	
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_SetDeviceOneParam(byte bDevAdr, byte pucDevParamAddr, byte bValue);
 
         /******** Func: Stop all RF reading**********/
         //  Param: bDevAdr:0xFF
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_StopRead(byte bDevAdr);
 
         /******** Func: Start all RF reading**********/
         //  Param: bDevAdr:0xFF
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_StartRead(byte bDevAdr);
 
         /******** Func: Inventory EPC**********/
@@ -71,7 +71,7 @@ namespace RFID
         //         CardNum: Tag Number
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_InventoryG2(byte bDevAdr, byte[] pBuffer, out ushort Totallen, out ushort CardNum);
 
         /******** Func: Write EPC**********/
@@ -81,7 +81,7 @@ namespace RFID
         //         WriteEPClen: Write Length
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_WriteEPCG2(byte bDevAdr, byte[] Password, byte[] WriteEPC, byte WriteEPClen);
 
         /******** Func: Read Card**********/
@@ -93,7 +93,7 @@ namespace RFID
         //         Data: Read Data
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_ReadCardG2(byte bDevAdr, byte[] Password, byte Mem, byte WordPtr, byte ReadEPClen, byte[] Data);
 
         /******** Func: Write Card**********/
@@ -105,28 +105,28 @@ namespace RFID
         //         WriteEPClen: Write Length
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_WriteCardG2(byte bDevAdr, byte[] Password, byte Mem, byte WordPtr, byte Writelen, byte[] Writedata);
 
         /******** Func: RelayOn**********/
         //  Param: bDevAdr: 0xFF
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_RelayOn(byte bDevAdr);
 
         /******** Func: RelayOff**********/
         //  Param: bDevAdr: 0xFF
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_RelayOff(byte bDevAdr);
 
         /******** Func: ClearTagBuf(ActiveMode)**********/
         //  Param: None
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_ClearTagBuf();
 
         /******** Func: GetTagBuf(ActiveMode)**********/
@@ -136,7 +136,7 @@ namespace RFID
         //         pTagNumber: Tag Number
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern byte CFCom_GetTagBuf(byte[] pBuf, out int pLength, out int pTagNumber);
 
         /******** Func: SetFreq**********/
@@ -163,7 +163,7 @@ namespace RFID
         //0x29        0x9D     //Japan
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_SetFreq(byte bDevAdr, byte[] pFreq);
 
         /******** Func: ReadFreq**********/
@@ -190,7 +190,7 @@ namespace RFID
         //0x29        0x9D     //Japan
         //  Return: Success return 1, failed return 0
         /*********************************************************/
-        [DllImport(@"C:\Users\User\Desktop\Repositorio\RFID\CFComApi.dll")]
+        [DllImport(@"C:\Users\User\Desktop\M-ID10S\TESTERFID\CFComApi.dll")]
         public static extern bool CFCom_ReadFreq(byte bDevAdr, byte[] pFreq);
     }
 }

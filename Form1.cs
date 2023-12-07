@@ -15,17 +15,9 @@ namespace RFID
         public Form1()
         {
             InitializeComponent();
-            button2.Enabled = false;
-            button11.Enabled = false;
 
-            byte[] arrBuffer = new byte[256];
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            byte[] arrBuffer = new byte[64];
-
-            String strPort = comboBox1.Text;
+            byte[] arrBuffer = new byte[4096];
+            String strPort = "COM10";
             if (RFID.CFComApi.CFCom_OpenDevice(strPort, 115200))
             {
                 this.SetText("Conectado\r\n");
@@ -55,95 +47,34 @@ namespace RFID
             }
             str = str + "\r\n";
             this.SetText(str);
-            button1.Enabled = false;
-            button2.Enabled = true;
-        }
+            
+            //Potencia de Sinal
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            RFID.CFComApi.CFCom_CloseDevice();
-            button1.Enabled = true;
-            button2.Enabled = false;
-            button6.Enabled = true;
-            button11.Enabled = false;
-            this.SetText("Fechar\r\n");
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            byte bParamAddr = 0;
-            byte[] bValue = new byte[2];
-
-            /*  01: Transport
-                02: WorkMode
-                03: DeviceAddr
-                04: FilterTime
-                05: RFPower
-                06: BeepEnable
-                07: UartBaudRate*/
-            bParamAddr = 0x05;
-
-            if (RFID.CFComApi.CFCom_ReadDeviceOneParam(0xFF, bParamAddr, bValue) == false)
-            {
-                this.SetText("Falha");
-                return;
-            }
-            string str1 = "";
-            str1 = bValue[0].ToString("d2");
-            str1 = "RF:" + str1 + "\r\n";
-
-            comboBox2.SelectedIndex = bValue[0];
-            this.SetText(str1);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
             byte bParamAddr = 0;
             byte bValue = 0;
 
-            /*  01: Transport
-                02: WorkMode
-                03: DeviceAddr
-                04: FilterTime
-                05: RFPower
-                06: BeepEnable
-                07: UartBaudRate*/
             bParamAddr = 0x05;
-            //bValue = 26;   //RF = 26
 
-            bValue = (byte)Convert.ToInt16(comboBox2.SelectedItem);
+            bValue = (byte)Convert.ToInt16("17");
 
             if (RFID.CFComApi.CFCom_SetDeviceOneParam(0xFF, bParamAddr, bValue) == false)
             {
                 this.SetText("Falha");
                 return;
             }
-            this.SetText("Sucesso");
-        }
+            this.SetText("Sucesso\r\n");
 
-        private void button6_Click(object sender, EventArgs e)
-        {
+            //Modo Ativo
+
             this.SetText("Modo Ativo\r\n");
             RFID.CFComApi.CFCom_ClearTagBuf();
             timer1.Interval = 100;
             timer1.Enabled = true;
-            button6.Enabled = false;
-            button11.Enabled = true;
-        }
 
-        private void button11_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            button6.Enabled = true;
-            button11.Enabled = false;
-        }
+            //Leitura Continua
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            if (!cbLeituraContinua.Checked)
+            if (!RFID.CFComApi.CFCom_OpenDevice(strPort, 115200))
             {
-                byte[] arrBuffer = new byte[4096];
                 ushort iNum = 0;
                 ushort iTotalLen = 0;
                 this.SetText("Modo Comandos\r\n");
@@ -166,22 +97,22 @@ namespace RFID
                 {
                     bPackLength = arrBuffer[iLength];
                     string str2 = "";
-                    string str1 = "";
-                    str1 = arrBuffer[1 + iLength + 0].ToString("X2");
-                    str2 = str2 + "Tipo:" + str1 + " ";  //Tag Type
+                    string str4 = "";
+                    str4 = arrBuffer[1 + iLength + 0].ToString("X2");
+                    str2 = str2 + "Tipo:" + str4 + " ";  //Tag Type
 
-                    str1 = arrBuffer[1 + iLength + 1].ToString("X2");
-                    str2 = str2 + "Ant:" + str1 + " Tag:";  //Ant
+                    str4 = arrBuffer[1 + iLength + 1].ToString("X2");
+                    str2 = str2 + "Ant:" + str4 + " Tag:";  //Ant
 
                     string str3 = "";
                     for (i = 2; i < bPackLength - 1; i++)
                     {
-                        str1 = arrBuffer[1 + iLength + i].ToString("X2");
-                        str3 = str3 + str1 + "";
+                        str4 = arrBuffer[1 + iLength + i].ToString("X2");
+                        str3 = str3 + str4 + "";
                     }
                     str2 = str2 + str3;
-                    str1 = arrBuffer[1 + iLength + i].ToString("X2");
-                    str2 = str2 + " RSSI:" + str1 + "\r\n";  //RSSI
+                    str4 = arrBuffer[1 + iLength + i].ToString("X2");
+                    str2 = str2 + " RSSI:" + str4 + "\r\n";  //RSSI
                     iLength = iLength + bPackLength + 1;
                     this.SetText(str2);
                 }
@@ -190,10 +121,8 @@ namespace RFID
             {
                 timer2.Interval = 300;
                 timer2.Enabled = !timer2.Enabled;
-                cbLeituraContinua.Enabled = !cbLeituraContinua.Enabled;
             }
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             byte[] arrBuffer = new byte[4096];
